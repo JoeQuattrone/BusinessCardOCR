@@ -1,4 +1,4 @@
-package com.example.springboot;
+package com.ocr;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;

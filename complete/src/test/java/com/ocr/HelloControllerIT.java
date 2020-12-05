@@ -1,4 +1,4 @@
-package com.example.springboot;
+package com.ocr;
 
 import static org.assertj.core.api.Assertions.*;
 
