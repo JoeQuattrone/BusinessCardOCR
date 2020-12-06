@@ -1,11 +1,11 @@
 package com.ocr;
 
-public class ContactInfo {
+public class Contact {
   private String name;
   private String phoneNumber;
   private String emailAddress;
 
-  ContactInfo(final String name, final String phoneNumber, final String emailAddress) {
+  Contact(final String name, final String phoneNumber, final String emailAddress) {
     this.name = name;
     this.phoneNumber = phoneNumber;
     this.emailAddress = emailAddress;
