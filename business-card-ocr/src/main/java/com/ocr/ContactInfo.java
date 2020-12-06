@@ -11,15 +11,15 @@ public class ContactInfo {
     this.emailAddress = emailAddress;
   }
 
-  public String getName(final String text) {
+  public String getName() {
     return name;
   }
 
-  public String getPhoneNumber(final String text) {
+  public String getPhoneNumber() {
     return phoneNumber;
   }
 
-  public String getEmailAddress(final String text) {
+  public String getEmailAddress() {
     return emailAddress;
   }
 }
