@@ -14,11 +14,15 @@ public class ContactRepository {
     super();
   }
 
-  public List<Contact> finaAll() {
+  public List<Contact> findAll() {
     return this.contactList;
   }
 
   public void add(final Contact contact) {
     this.contactList.add(contact);
+  }
+
+  public void clearAll() {
+    this.contactList.clear();
   }
 }

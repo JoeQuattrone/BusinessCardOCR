@@ -7,10 +7,12 @@
     <h1>Business Card Optical Character Recognition</h1>
     <h3>Enter Card Info</h3>
     <div>
-      <p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
       <form action="#" th:action="@{/save}" method="post"  th:object="${businessCard}">
         <input type="text" th:field="*{info}"/>
         <input type="submit" />
+      </form>
+      <form action="#" th:action="@{/clear}" method="post" th:object="${clearContacts}">
+        <input type="submit" value="clear"/>
       </form>
       <div th:if="${existingContacts.size() > 0}" th:each="contact : ${existingContacts}">
         <div th:text="${contact.getName()}">

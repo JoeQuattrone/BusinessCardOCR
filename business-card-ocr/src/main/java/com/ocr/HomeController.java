@@ -1,51 +1,61 @@
 package com.ocr;
 
-import com.ocr.repositories.ContactRepository;
+import com.ocr.services.ContactService;
+import java.util.List;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
 
 @Controller
 public class HomeController {
 
   private final ParsingService parsingService;
-  private final ContactRepository contactRepository;
+  private final ContactService contactService;
 
-  public HomeController(ParsingService parsingService, ContactRepository contactRepository) {
+  public HomeController(ParsingService parsingService, ContactService contactService) {
     this.parsingService = parsingService;
-    this.contactRepository = contactRepository;
+    this.contactService = contactService;
   }
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
-  public String getHome(Model model) {
+  public String getHome(ModelMap model) {
+    model.clear();
+
     BusinessCard card = new BusinessCard();
     model.addAttribute("businessCard", card);
 
-    final List<Contact> existingContacts = contactRepository.finaAll();
+    final List<Contact> existingContacts = contactService.findAll();
     model.addAttribute("existingContacts", existingContacts);
+    model.addAttribute("clearContacts", new Object());
     return "home";
   }
 
   @RequestMapping(value = "/save", method = RequestMethod.POST)
-  public String sendCard(final BusinessCard card,  final BindingResult bindingResult, final ModelMap model) {
+  public String sendCard(
+      final BusinessCard card, final BindingResult bindingResult, final ModelMap model) {
     if (bindingResult.hasErrors()) {
       System.out.println(bindingResult.getAllErrors().toString());
     }
 
     System.out.println(card.getInfo());
-    final Contact contact = new Contact("john smith", "301-893-3334", "test@test.com" );
-    contactRepository.add(contact);
+    final Contact contact = new Contact("john smith", "301-893-3334", "test@test.com");
+    contactService.add(contact);
     model.addAttribute("contactInfo", contact);
     return "redirect:/";
   }
 
-  //  @ModelAttribute("contactInfo")
-  //  public ContactInfo info(ContactInfo info) {
-  //    return info;
-  //  }
+  @RequestMapping(value = "/clear", method = RequestMethod.POST)
+  public String clearContacts(
+      @ModelAttribute("clearContacts") final Object clearContacts,
+      final BindingResult bindingResult,
+      final ModelMap model) {
+    if (bindingResult.hasErrors()) {
+      System.out.println(bindingResult.getAllErrors().toString());
+    }
+    contactService.clearAll();
+    return "redirect:/";
+  }
 }
