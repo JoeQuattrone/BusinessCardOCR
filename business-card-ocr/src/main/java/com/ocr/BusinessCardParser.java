@@ -21,7 +21,7 @@ public class BusinessCardParser {
     final StringBuilder name = new StringBuilder();
     final String[] words = info.split(" ");
     final Map<Integer, String> lastNameWithIndex = findLastName(words);
-    if (lastNameWithIndex.size() > 0) {
+    if (lastNameWithIndex.size() == 0) {
       return "Unknown Name";
     }
 
