@@ -2,6 +2,8 @@ package com.ocr;
 
 import com.ocr.services.ContactService;
 import java.util.List;
+
+import com.ocr.services.ParsingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -41,7 +43,7 @@ public class HomeController {
     }
 
     System.out.println(card.getInfo());
-    final Contact contact = new Contact("john smith", "301-893-3334", "test@test.com");
+    final Contact contact = parsingService.buildContact(card);
     contactService.add(contact);
     model.addAttribute("contactInfo", contact);
     return "redirect:/";

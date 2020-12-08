@@ -15,9 +15,9 @@
         <input type="submit" value="clear"/>
       </form>
       <div th:if="${existingContacts.size() > 0}" th:each="contact : ${existingContacts}">
-        <div th:text="${contact.getName()}">
-        <div th:text="${contact.getEmailAddress()}">
-        <div th:text="${contact.getPhoneNumber()}">
+        Name: <div th:text="${contact.getName()}"></div>
+        Email: <div th:text="${contact.getEmailAddress()}"></div>
+        Telephone: <div th:text="${contact.getPhoneNumber()}"></div>
       </div>
     </div>
   </body>
