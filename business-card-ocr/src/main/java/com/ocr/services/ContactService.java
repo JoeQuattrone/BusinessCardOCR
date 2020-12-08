@@ -2,9 +2,8 @@ package com.ocr.services;
 
 import com.ocr.Contact;
 import com.ocr.repositories.ContactRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ContactService {

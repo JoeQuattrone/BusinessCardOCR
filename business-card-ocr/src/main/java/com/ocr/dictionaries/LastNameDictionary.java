@@ -1,4 +1,4 @@
-package com.ocr;
+package com.ocr.dictionaries;
 
 import java.io.File;
 import java.net.URL;

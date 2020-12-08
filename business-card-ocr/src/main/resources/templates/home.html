@@ -11,7 +11,7 @@
         <input type="text" th:field="*{info}"/>
         <input type="submit" />
       </form>
-      <form action="#" th:action="@{/clear}" method="post" th:object="${clearContacts}">
+      <form action="#" th:action="@{/clear}" method="get">
         <input type="submit" value="clear"/>
       </form>
       <div th:if="${existingContacts.size() > 0}" th:each="contact : ${existingContacts}">
