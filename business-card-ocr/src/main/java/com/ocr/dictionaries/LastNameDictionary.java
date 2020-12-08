@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 /** In-memory database of the 10,000 most common last names source https://www2.census.gov/ */
 public class LastNameDictionary {
-  public static Map<String, Integer> names = new HashMap<>();
+  public static Map<String, Boolean> names = new HashMap<>();
 
   // public Map<String, Integer> getNames() {
   // Map<String, Integer> names = new HashMap<>();
@@ -26,8 +26,7 @@ public class LastNameDictionary {
   // return names;
   // }
 
-  public static void populateNames(Map<String, Integer> names) {
-
+  public static void populateNames(Map<String, Boolean> names) {
     try {
       URL resource = LastNameDictionary.class.getClassLoader().getResource("com/names.txt");
       File file = new File(resource.toURI());
@@ -35,7 +34,7 @@ public class LastNameDictionary {
       final Scanner scanner = new Scanner(file);
 
       while (scanner.hasNext()) {
-        names.put(scanner.next(), 0);
+        names.put(scanner.next(), Boolean.TRUE);
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -44,5 +43,9 @@ public class LastNameDictionary {
 
   static {
     populateNames(names);
+  }
+
+  public static Boolean get(final String name) {
+    return names.get(name.toUpperCase());
   }
 }

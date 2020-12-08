@@ -1,5 +1,8 @@
 package com.ocr;
 
+import com.ocr.dictionaries.LastNameDictionary;
+import java.util.Collections;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,22 +14,48 @@ public class BusinessCardParser {
     final String phoneNumber = findPhoneNumber(info);
     final String emailAddress = findPhoneNumber(info);
 
-    final Contact contact = new Contact(name, phoneNumber, emailAddress);
-
-    return contact;
+    return new Contact(name, phoneNumber, emailAddress);
   }
 
   public String findName(final String info) {
-    return findNameByLastName(info);
+    final StringBuilder name = new StringBuilder();
+    final String[] words = info.split(" ");
+    final Map<Integer, String> lastNameWithIndex = findLastName(words);
+    if (lastNameWithIndex.size() > 0) {
+      return "Unknown Name";
+    }
+
+    final int lastNameIndex = lastNameWithIndex.keySet().iterator().next();
+    final String lastName = lastNameWithIndex.get(lastNameIndex);
+
+    // can throw index out of bounds exception if lastname is the first word found
+    final String firstName = words[lastNameIndex - 1];
+
+    name.append(firstName);
+    name.append(" ");
+    name.append(lastName);
+
+    return name.toString();
   }
 
-  public String findNameByLastName(final String info) {
-    // sort through text. find capitalized letters. Look up in Last name diction. if lookup != null.
-    // Return lookup + word before it
-    return "";
+  // should return a map of name and index the word was found.
+  private Map<Integer, String> findLastName(final String[] words) {
+    for (int i = 0; i < words.length; i++) {
+      final String word = words[i];
+
+      if (isCapitalized(word)) {
+        log("Capital words found " + word);
+        final Boolean lastNameValue = LastNameDictionary.get(word);
+        log("last name value: " + lastNameValue);
+        if (lastNameValue != null) {
+          return Collections.singletonMap(i, word);
+        }
+      }
+    }
+    return Collections.emptyMap();
   }
 
-  public String findNameByFirstName(final String info) {
+  private String findNameByFirstName(final String info) {
     return "";
   }
 
@@ -36,5 +65,17 @@ public class BusinessCardParser {
 
   public String findEmailAddress(final String info) {
     return "test@test.com";
+  }
+
+  public boolean isCapitalized(final String word) {
+    if (word.length() > 1) {
+      final char[] chars = word.toCharArray();
+      return Character.isUpperCase(chars[0]) && Character.isLowerCase(chars[1]);
+    }
+    return false;
+  }
+
+  public void log(final String message) {
+    System.out.println(message);
   }
 }
