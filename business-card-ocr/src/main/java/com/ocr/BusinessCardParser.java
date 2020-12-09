@@ -20,7 +20,9 @@ public class BusinessCardParser {
   }
 
   public Contact buildContact(BusinessCard card) {
-    final String info = card.getInfo();
+    final String info = card.getInfo().replace("\n", " ");
+
+    log(info);
     final String name = findName(info);
     final String phoneNumber = findPhoneNumber(info);
     final String emailAddress = findPhoneNumber(info);
@@ -49,7 +51,7 @@ public class BusinessCardParser {
   private Map<Integer, String> findNameWithIndex(
       final String[] words, final Dictionary dictionary) {
     for (int i = 0; i < words.length; i++) {
-      final String word = words[i];
+      final String word = words[i].trim();
 
       if (isCapitalized(word)) {
         log("Capital word found " + word);

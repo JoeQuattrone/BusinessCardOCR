@@ -41,7 +41,6 @@ public class HomeController {
       System.out.println(bindingResult.getAllErrors().toString());
     }
 
-    System.out.println(card.getInfo());
     final Contact contact = businessCardParser.buildContact(card);
     contactService.add(contact);
     model.addAttribute("contactInfo", contact);
