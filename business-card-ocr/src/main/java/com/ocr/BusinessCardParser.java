@@ -1,6 +1,5 @@
 package com.ocr;
 
-import com.ocr.dictionaries.Dictionary;
 import com.ocr.dictionaries.FirstNameDictionary;
 import com.ocr.dictionaries.LastNameDictionary;
 import java.util.Collections;
@@ -35,13 +34,13 @@ public class BusinessCardParser {
   public String findName(final String info) {
     final StringBuilder name = new StringBuilder();
     final String[] words = info.split(" ");
-    final Map<Integer, String> firstNameWithIndex = findNameWithIndex(words, firstNameDictionary);
+    final Map<Integer, String> firstNameWithIndex = findNameWithIndex(words, true);
 
     if (!firstNameWithIndex.isEmpty()) {
       return buildFullName(true, words, firstNameWithIndex);
     }
 
-    final Map<Integer, String> lastNameWithIndex = findNameWithIndex(words, lastNameDictionary);
+    final Map<Integer, String> lastNameWithIndex = findNameWithIndex(words, false);
     if (!lastNameWithIndex.isEmpty()) {
       return buildFullName(false, words, lastNameWithIndex);
     }
@@ -49,7 +48,7 @@ public class BusinessCardParser {
   }
 
   private Map<Integer, String> findNameWithIndex(
-      final String[] words, final Dictionary dictionary) {
+      final String[] words, final boolean findByFirstName) {
     for (int i = 0; i < words.length; i++) {
       final String word = words[i].trim();
 
@@ -57,10 +56,11 @@ public class BusinessCardParser {
         log("Capital word found " + word);
 
         // null when word is not found in dictionary
-        final Boolean isNameFound = dictionary.get(word);
+        final Boolean isNameFound =
+            findByFirstName ? firstNameDictionary.get(word) : lastNameDictionary.get(word);
 
-        if (isNameFound != null) {
-          log(word + " was found in dictionary: " + dictionary.getClass().getName());
+        if (isNameFound == Boolean.TRUE) {
+          log(word + " was found by first name: " + findByFirstName);
           return Collections.singletonMap(i, word);
         }
       }

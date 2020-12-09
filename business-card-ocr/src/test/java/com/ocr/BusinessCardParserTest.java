@@ -1,7 +1,6 @@
 package com.ocr;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,8 +25,8 @@ public class BusinessCardParserTest {
   @DataProvider
   Object[][] findNameDataSet() {
     return new Object[][] {
-      //      {"John Smith", "John", "John Smith"},
-      //      {case1, "Mike", "Mike Smith"},
+      {"John Smith", "John", "John Smith"},
+      {case1, "Mike", "Mike Smith"},
       {case2, "Lisa", "Lisa Haung"},
       {case3, "Arthur", "Arthur Wilson"},
     };
@@ -36,8 +35,7 @@ public class BusinessCardParserTest {
   @Test(dataProvider = "findNameDataSet")
   public void findName_shouldReturnNameFromCardInfoUsingFirstNameSearch(
       final String info, final String firstName, final String expectedName) {
-    when(firstNameDictionary.get(eq(firstName))).thenReturn(Boolean.TRUE);
-    // doReturn(Boolean.TRUE).when(firstNameDictionary).get( argThat("Lisa"));
+    when(firstNameDictionary.get(firstName)).thenReturn(Boolean.TRUE);
 
     final String name = businessCardParser.findName(info);
 
