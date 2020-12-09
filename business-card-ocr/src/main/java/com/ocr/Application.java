@@ -1,5 +1,6 @@
 package com.ocr;
 
+import com.ocr.dictionaries.FirstNameDictionary;
 import com.ocr.dictionaries.LastNameDictionary;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,6 +22,7 @@ public class Application {
       // System.out.println(dict.getNames().toString());
 
       System.out.println(LastNameDictionary.names.toString());
+      System.out.println(FirstNameDictionary.names.toString());
     };
   }
 }

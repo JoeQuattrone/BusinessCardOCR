@@ -4,14 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
-// In-memory database of the 10,000 most common last names source https://www2.census.gov
+// In-memory database of the 1,900 most common male & female first names source:
+// https://namecensus.com
 @Component
-public class LastNameDictionary extends Dictionary {
+public class FirstNameDictionary extends Dictionary {
+
   // TODO: change to private before shipping
-  public static Map<String, Boolean> names = new HashMap<>();
+  public static final Map<String, Boolean> names = new HashMap<>();
 
   static {
-    writeFileToMap(names, "com/lastNames.txt");
+    writeFileToMap(names, "com/firstNames.txt");
   }
 
   public static Boolean get(final String name) {

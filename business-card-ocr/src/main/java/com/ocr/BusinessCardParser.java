@@ -1,5 +1,7 @@
 package com.ocr;
 
+import com.ocr.dictionaries.Dictionary;
+import com.ocr.dictionaries.FirstNameDictionary;
 import com.ocr.dictionaries.LastNameDictionary;
 import java.util.Collections;
 import java.util.Map;
@@ -7,6 +9,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BusinessCardParser {
+
+  private final FirstNameDictionary firstNameDictionary;
+  private final LastNameDictionary lastNameDictionary;
+
+  public BusinessCardParser(
+      FirstNameDictionary firstNameDictionary, LastNameDictionary lastNameDictionary) {
+    this.firstNameDictionary = firstNameDictionary;
+    this.lastNameDictionary = lastNameDictionary;
+  }
 
   public Contact buildContact(BusinessCard card) {
     final String info = card.getInfo();
@@ -20,7 +31,7 @@ public class BusinessCardParser {
   public String findName(final String info) {
     final StringBuilder name = new StringBuilder();
     final String[] words = info.split(" ");
-    final Map<Integer, String> lastNameWithIndex = findLastName(words);
+    final Map<Integer, String> lastNameWithIndex = findFirstOrLastName(words, lastNameDictionary);
     if (lastNameWithIndex.size() == 0) {
       return "Unknown Name";
     }
@@ -29,6 +40,7 @@ public class BusinessCardParser {
     final String lastName = lastNameWithIndex.get(lastNameIndex);
 
     // can throw index out of bounds exception if lastname is the first word found
+    // need to check firstname first
     final String firstName = words[lastNameIndex - 1];
 
     name.append(firstName);
@@ -39,7 +51,8 @@ public class BusinessCardParser {
   }
 
   // should return a map of name and index the word was found.
-  private Map<Integer, String> findLastName(final String[] words) {
+  private Map<Integer, String> findFirstOrLastName(
+      final String[] words, final Dictionary dictionary) {
     for (int i = 0; i < words.length; i++) {
       final String word = words[i];
 
@@ -55,7 +68,7 @@ public class BusinessCardParser {
     return Collections.emptyMap();
   }
 
-  private String findNameByFirstName(final String info) {
+  private String findFirstName(final String info) {
     return "";
   }
 
