@@ -1,5 +1,6 @@
 package com.ocr;
 
+import static com.ocr.BusinessCardParser.UNKNOWN_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,16 +24,17 @@ public class BusinessCardParserTest {
   }
 
   @DataProvider
-  Object[][] findNameDataSet() {
+  Object[][] findByFirstNameDataSet() {
     return new Object[][] {
       {"John Smith", "John", "John Smith"},
-      {case1, "Mike", "Mike Smith"},
-      {case2, "Lisa", "Lisa Haung"},
-      {case3, "Arthur", "Arthur Wilson"},
+      {CASE1, "Mike", "Mike Smith"},
+      {CASE2, "Lisa", "Lisa Haung"},
+      {CASE3, "Arthur", "Arthur Wilson"},
+      {CASE_WITH_NO_NAME, "Random Word", UNKNOWN_NAME},
     };
   }
 
-  @Test(dataProvider = "findNameDataSet")
+  @Test(dataProvider = "findByFirstNameDataSet")
   public void findName_shouldReturnNameFromCardInfoUsingFirstNameSearch(
       final String info, final String firstName, final String expectedName) {
     when(firstNameDictionary.get(firstName)).thenReturn(Boolean.TRUE);
@@ -42,10 +44,32 @@ public class BusinessCardParserTest {
     assertThat(name).isEqualTo(expectedName);
   }
 
-  private static final String case1 =
+  @DataProvider
+  Object[][] findByLastNameDataSet() {
+    return new Object[][] {
+      {"John Smith", "Smith", "John Smith"},
+      {CASE1, "Smith", "Mike Smith"},
+      {CASE2, "Haung", "Lisa Haung"},
+      {CASE3, "Wilson", "Arthur Wilson"},
+      {CASE_WITH_NO_NAME, "Random Word", UNKNOWN_NAME},
+    };
+  }
+
+  @Test(dataProvider = "findByLastNameDataSet")
+  public void findName_shouldReturnNameFromCardInfoUsingLastNameSearch(
+      final String info, final String lastName, final String expectedName) {
+    when(lastNameDictionary.get(lastName)).thenReturn(Boolean.TRUE);
+
+    final String name = businessCardParser.findName(info);
+
+    assertThat(name).isEqualTo(expectedName);
+  }
+
+  private static final String CASE1 =
       "ASYMMETRIK LTD Mike Smith Senior Software Engineer (410)555-1234 msmith@asymmetrik.com";
-  private static final String case2 =
+  private static final String CASE2 =
       "Foobar Technologies Analytic Developer Lisa Haung 1234 Sentry Road Columbia, MD 12345 Phone: 410-555-1234 Fax: 410-555-4321 lisa.haung@foobartech.com";
-  private static final String case3 =
+  private static final String CASE3 =
       "Arthur Wilson Software Engineer Decision & Security Technologies ABC Technologies 123 North 11th Street Suite 229 Arlington, VA 22209 Tel: +1 (703) 555-1259 Fax: +1 (703) 555-1200 awilson@abctech.com";
+  private static final String CASE_WITH_NO_NAME = "Text with no name";
 }

@@ -116,5 +116,5 @@ public class BusinessCardParser {
     System.out.println(message);
   }
 
-  private static String UNKNOWN_NAME = "Unknown Name";
+  public static String UNKNOWN_NAME = "Unknown Name";
 }
