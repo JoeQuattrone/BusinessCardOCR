@@ -28,39 +28,37 @@ public class BusinessCardParser {
     return new Contact(name, phoneNumber, emailAddress);
   }
 
+  // Searches for first names first. If found return first name + the word after it.
+  // If first name not found, search for last name and return last name + the word before it
   public String findName(final String info) {
     final StringBuilder name = new StringBuilder();
     final String[] words = info.split(" ");
-    final Map<Integer, String> lastNameWithIndex = findFirstOrLastName(words, lastNameDictionary);
-    if (lastNameWithIndex.size() == 0) {
-      return "Unknown Name";
+    final Map<Integer, String> firstNameWithIndex = findNameWithIndex(words, firstNameDictionary);
+
+    if (!firstNameWithIndex.isEmpty()) {
+      return buildFullName(true, words, firstNameWithIndex);
     }
 
-    final int lastNameIndex = lastNameWithIndex.keySet().iterator().next();
-    final String lastName = lastNameWithIndex.get(lastNameIndex);
-
-    // can throw index out of bounds exception if lastname is the first word found
-    // need to check firstname first
-    final String firstName = words[lastNameIndex - 1];
-
-    name.append(firstName);
-    name.append(" ");
-    name.append(lastName);
-
-    return name.toString();
+    final Map<Integer, String> lastNameWithIndex = findNameWithIndex(words, lastNameDictionary);
+    if (!lastNameWithIndex.isEmpty()) {
+      return buildFullName(false, words, lastNameWithIndex);
+    }
+    return UNKNOWN_NAME;
   }
 
-  // should return a map of name and index the word was found.
-  private Map<Integer, String> findFirstOrLastName(
+  private Map<Integer, String> findNameWithIndex(
       final String[] words, final Dictionary dictionary) {
     for (int i = 0; i < words.length; i++) {
       final String word = words[i];
 
       if (isCapitalized(word)) {
-        log("Capital words found " + word);
-        final Boolean lastNameValue = LastNameDictionary.get(word);
-        log("last name value: " + lastNameValue);
-        if (lastNameValue != null) {
+        log("Capital word found " + word);
+
+        // null when word is not found in dictionary
+        final Boolean isNameFound = dictionary.get(word);
+
+        if (isNameFound != null) {
+          log(word + " was found in dictionary: " + dictionary.getClass().getName());
           return Collections.singletonMap(i, word);
         }
       }
@@ -68,8 +66,32 @@ public class BusinessCardParser {
     return Collections.emptyMap();
   }
 
-  private String findFirstName(final String info) {
-    return "";
+  private String buildFullName(
+      final boolean foundByFirstName,
+      final String[] words,
+      final Map<Integer, String> nameWithIndex) {
+    final StringBuilder fullName = new StringBuilder();
+    final int nameIndex = nameWithIndex.keySet().iterator().next();
+    final String name = nameWithIndex.get(nameIndex);
+
+    if (foundByFirstName && nameIndex < words.length - 1) {
+      final String lastName = words[nameIndex + 1];
+
+      fullName.append(name);
+      fullName.append(" ");
+      fullName.append(lastName);
+
+      return fullName.toString();
+    } else if (!foundByFirstName && nameIndex > 0) {
+      final String firstName = words[nameIndex - 1];
+
+      fullName.append(firstName);
+      fullName.append(" ");
+      fullName.append(name);
+
+      return fullName.toString();
+    }
+    return UNKNOWN_NAME;
   }
 
   public String findPhoneNumber(final String info) {
@@ -91,4 +113,6 @@ public class BusinessCardParser {
   public void log(final String message) {
     System.out.println(message);
   }
+
+  private static String UNKNOWN_NAME = "Unknown Name";
 }

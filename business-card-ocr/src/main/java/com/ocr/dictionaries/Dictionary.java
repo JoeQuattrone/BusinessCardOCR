@@ -9,8 +9,7 @@ public abstract class Dictionary {
 
   static void writeFileToMap(final Map<String, Boolean> names, final String fileName) {
     try {
-      URL resource =
-          com.ocr.dictionaries.LastNameDictionary.class.getClassLoader().getResource(fileName);
+      URL resource = Dictionary.class.getClassLoader().getResource(fileName);
       File file = new File(resource.toURI());
 
       final Scanner scanner = new Scanner(file);
@@ -22,4 +21,6 @@ public abstract class Dictionary {
       e.printStackTrace();
     }
   }
+
+  public abstract Boolean get(String name);
 }

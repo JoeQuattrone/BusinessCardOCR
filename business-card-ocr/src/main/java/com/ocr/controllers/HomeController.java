@@ -49,7 +49,7 @@ public class HomeController {
   }
 
   @RequestMapping(value = "/clear", method = RequestMethod.GET)
-  public String clearContacts(final ModelMap model) {
+  public String clearContacts() {
     contactService.clearAll();
     return "redirect:/";
   }

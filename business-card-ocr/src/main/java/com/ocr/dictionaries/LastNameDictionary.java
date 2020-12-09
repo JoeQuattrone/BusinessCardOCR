@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
-// In-memory database of the 10,000 most common last names source https://www2.census.gov
+// In-memory database of the 10,000 most common last names
+// source: https://www2.census.gov
 @Component
 public class LastNameDictionary extends Dictionary {
   // TODO: change to private before shipping
@@ -14,7 +15,8 @@ public class LastNameDictionary extends Dictionary {
     writeFileToMap(names, "com/lastNames.txt");
   }
 
-  public static Boolean get(final String name) {
+  @Override
+  public Boolean get(final String name) {
     return names.get(name.toUpperCase());
   }
 }

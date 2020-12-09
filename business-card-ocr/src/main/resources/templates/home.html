@@ -8,7 +8,7 @@
     <h3>Enter Card Info</h3>
     <div>
       <form action="#" th:action="@{/save}" method="post"  th:object="${businessCard}">
-        <input type="text" th:field="*{info}"/>
+        <input type="text" th:field="*{info}" style="width:600px; height:50px;"/>
         <input type="submit" />
       </form>
       <form action="#" th:action="@{/clear}" method="get">

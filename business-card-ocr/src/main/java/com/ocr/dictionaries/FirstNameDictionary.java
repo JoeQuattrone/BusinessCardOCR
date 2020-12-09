@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
-// In-memory database of the 1,900 most common male & female first names source:
-// https://namecensus.com
+// In-memory database of the 1,900 most common male & female first names
+// source: https://namecensus.com
 @Component
 public class FirstNameDictionary extends Dictionary {
 
@@ -16,7 +16,8 @@ public class FirstNameDictionary extends Dictionary {
     writeFileToMap(names, "com/firstNames.txt");
   }
 
-  public static Boolean get(final String name) {
+  @Override
+  public Boolean get(final String name) {
     return names.get(name.toUpperCase());
   }
 }
