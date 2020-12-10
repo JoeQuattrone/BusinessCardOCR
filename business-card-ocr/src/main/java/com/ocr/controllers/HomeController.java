@@ -26,11 +26,11 @@ public class HomeController {
   public String getHome(ModelMap model) {
     model.clear();
 
-    BusinessCard card = new BusinessCard();
+    final BusinessCard card = new BusinessCard();
     model.addAttribute("businessCard", card);
-
     final List<ContactInfo> existingContactInfos = contactService.findAll();
     model.addAttribute("existingContactInfos", existingContactInfos);
+
     return "home";
   }
 
@@ -40,16 +40,17 @@ public class HomeController {
     if (bindingResult.hasErrors()) {
       System.out.println(bindingResult.getAllErrors().toString());
     }
-
     final ContactInfo contactInfo = businessCardParser.buildContact(card);
     contactService.add(contactInfo);
     model.addAttribute("contactInfo", contactInfo);
+
     return "redirect:/";
   }
 
   @RequestMapping(value = "/clear", method = RequestMethod.GET)
   public String clearContacts() {
     contactService.clearAll();
+
     return "redirect:/";
   }
 }

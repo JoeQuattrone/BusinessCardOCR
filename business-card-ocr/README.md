@@ -16,7 +16,7 @@ Before you continue ensure you have the following installed:
 <p>Clone this repository to your local machine</p>
 
 ### How to Run
-<p>To view the application locally, from the root directory (business-card-ocr) run:</p>
+<p>To start the application locally, from the root directory (business-card-ocr) run:</p>
 
     ./mvnw spring-boot:run
     
