@@ -8,7 +8,7 @@
     <h3>Enter Card Info</h3>
     <div>
       <form action="#" th:action="@{/save}" method="post"  th:object="${businessCard}" name="cardForm">
-        <textarea  th:field="*{info}" name="card" type="card" cols="30" rows="10" onclick="replaceNewLins(e)"></textarea>
+        <textarea  th:field="*{info}" name="card" type="card" cols="30" rows="10"></textarea>
         <input type="submit" />
       </form>
       <form action="#" th:action="@{/clear}" method="get">

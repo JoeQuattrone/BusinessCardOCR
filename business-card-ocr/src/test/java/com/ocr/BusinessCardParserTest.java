@@ -27,10 +27,10 @@ public class BusinessCardParserTest {
   Object[][] findByFirstNameDataSet() {
     return new Object[][] {
       {"John Smith", "John", "John Smith"},
-      {CASE1, "Mike", "Mike Smith"},
-      {CASE2, "Lisa", "Lisa Haung"},
-      {CASE3, "Arthur", "Arthur Wilson"},
-      {CASE_WITH_NO_NAME, "Random Word", UNKNOWN_NAME},
+      {CARD1, "Mike", "Mike Smith"},
+      {CARD2, "Lisa", "Lisa Haung"},
+      {CARD3, "Arthur", "Arthur Wilson"},
+      {CARD_WITH_NO_NAME, "Random Word", UNKNOWN_NAME},
     };
   }
 
@@ -48,10 +48,10 @@ public class BusinessCardParserTest {
   Object[][] findByLastNameDataSet() {
     return new Object[][] {
       {"John Smith", "Smith", "John Smith"},
-      {CASE1, "Smith", "Mike Smith"},
-      {CASE2, "Haung", "Lisa Haung"},
-      {CASE3, "Wilson", "Arthur Wilson"},
-      {CASE_WITH_NO_NAME, "Random Word", UNKNOWN_NAME},
+      {CARD1, "Smith", "Mike Smith"},
+      {CARD2, "Haung", "Lisa Haung"},
+      {CARD3, "Wilson", "Arthur Wilson"},
+      {CARD_WITH_NO_NAME, "Random Word", UNKNOWN_NAME},
     };
   }
 
@@ -65,11 +65,11 @@ public class BusinessCardParserTest {
     assertThat(name).isEqualTo(expectedName);
   }
 
-  private static final String CASE1 =
+  private static final String CARD1 =
       "ASYMMETRIK LTD Mike Smith Senior Software Engineer (410)555-1234 msmith@asymmetrik.com";
-  private static final String CASE2 =
+  private static final String CARD2 =
       "Foobar Technologies Analytic Developer Lisa Haung 1234 Sentry Road Columbia, MD 12345 Phone: 410-555-1234 Fax: 410-555-4321 lisa.haung@foobartech.com";
-  private static final String CASE3 =
+  private static final String CARD3 =
       "Arthur Wilson Software Engineer Decision & Security Technologies ABC Technologies 123 North 11th Street Suite 229 Arlington, VA 22209 Tel: +1 (703) 555-1259 Fax: +1 (703) 555-1200 awilson@abctech.com";
-  private static final String CASE_WITH_NO_NAME = "Text with no name";
+  private static final String CARD_WITH_NO_NAME = "Text with no name";
 }
