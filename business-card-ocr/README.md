@@ -16,13 +16,39 @@ Before you continue ensure you have the following installed:
 <p>Clone this repository to your local machine</p>
 
 ### How to Run
-<p>From the root directory (business-card-ocr)</p>
+<p>To view the application locally, from the root directory (business-card-ocr) run:</p>
 
     ./mvnw spring-boot:run
     
-<p>In your browser navigate to</p>
+<p>In your browser navigate to: </p>
 
     localhost:8080
+    
+### Example Usage
+<p>From the home page enter the following text into the business card input: </p>
+
+    Foobar Technologies
+    Analytic Developer
+    Lisa Haung
+    1234 Sentry Road
+    Columbia, MD 12345
+    Phone: 410-555-1234
+    Fax: 410-555-4321
+    lisa.haung@foobartech.com
+        
+<p>The following data should be extracted from the text and displayed on the home page: </p>
+
+    ==>
+    Name: Lisa Haung
+    Phone: 4105551234
+    Email: lisa.haung@foobartech.com
+    
+### How It Works
+<p>The Business Card OCR uses different algorithms to extract the 3 pieces of the data listed above. The following is an explanation of each algorithm:</p>
+
+       Name - 
+       Telephone - 
+       Email - 
     
 ### Acknowledgments
 Thank you to the team who put together the Spring Boot Getting Started Guide. You can find the original repository [here](https://github.com/spring-guides/gs-spring-boot)
