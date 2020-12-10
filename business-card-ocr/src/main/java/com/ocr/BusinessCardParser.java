@@ -22,7 +22,6 @@ public class BusinessCardParser {
 
   public Contact buildContact(BusinessCard card) {
     final String info = card.getInfo();
-    log(String.format("Business Card info: %s", info));
     final String name = findName(info);
     final String phoneNumber = findPhoneNumber(info);
     final String emailAddress = findEmailAddress(info);
@@ -96,31 +95,42 @@ public class BusinessCardParser {
     return UNKNOWN_NAME;
   }
 
+  // searches for numeric strings larger then 6 digits. Checks to make sure the word before if it is
+  // not "fax".
+  // then checks to see if digits are in the previous word, if so concat the previous word with the
+  // current word.
+  // otherwise return the current word
   public String findPhoneNumber(final String info) {
     final String[] words = info.split(" ");
-    final Pattern phonePattern = Pattern.compile(PHONE_STRING_PATTERN);
+    final Pattern phonePattern = Pattern.compile(NUMERIC_STRING_PATTERN);
 
-    int j = 1;
-    for (int i = 0; i < words.length - 1; i++) {
-      final Matcher matcher = phonePattern.matcher(words[j]);
-      log(words[j]);
-      if (matcher.find()) {
-        return words[j];
-        //          if (!words[i].toLowerCase().contains("fax")) {
-        //          }
+    int j = 0;
+    for (int i = 1; i < words.length - 1; i++) {
+      final String word = words[i];
+      final String previousWord = words[j].toLowerCase();
+      final Matcher matcher = phonePattern.matcher(word);
+      if (matcher.find() && word.length() > 6 && !previousWord.contains("fax")) {
+        final Matcher previousWordMatcher = phonePattern.matcher(previousWord);
+        if (previousWordMatcher.find()) {
+          return previousWord.concat(word);
+        } else {
+          return word;
+        }
       }
       j++;
     }
     return UNKNOWN_PHONE_NUMBER;
   }
 
-  private String findPhoneNumberWithIndex() {
-    final Pattern pattern = Pattern.compile(PHONE_STRING_PATTERN);
-    return "";
-  }
-
   public String findEmailAddress(final String info) {
-    return "test@test.com";
+    final String[] words = info.split(" ");
+
+    for (final String word : words) {
+      if (word.contains("@")) {
+        return word;
+      }
+    }
+    return UNKNOWN_EMAIL;
   }
 
   public boolean isCapitalized(final String word) {
@@ -137,7 +147,7 @@ public class BusinessCardParser {
 
   public static String UNKNOWN_NAME = "Unknown name";
   public static String UNKNOWN_PHONE_NUMBER = "Unknown phone number";
-  public static String TELEPHONE = "telephone";
-  // public static String NUMERIC_STRING_PATTERN = "-?\\d+(\\.\\d+)?";
-  public static String PHONE_STRING_PATTERN = "^\\+(?:[0-9] ?){6,14}[0-9]$";
+  public static String UNKNOWN_EMAIL = "Unknown email";
+
+  public static String NUMERIC_STRING_PATTERN = "-?\\d+(\\.\\d+)?";
 }

@@ -4,7 +4,7 @@ public class BusinessCard {
   private String info;
 
   public BusinessCard(final String info) {
-    this.info = replaceNewLinesWithSpaces(info);
+    this.info = replaceChars(info);
   }
 
   public BusinessCard() {}
