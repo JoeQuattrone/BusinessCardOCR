@@ -1,4 +1,4 @@
-#Business Card Optical Character Reader
+# Business Card Optical Character Reader
 
 ### Introduction
 This project is a Spring Boot web application that allows users to enter common business card data. It parses the text and returns the following data from the business card:
