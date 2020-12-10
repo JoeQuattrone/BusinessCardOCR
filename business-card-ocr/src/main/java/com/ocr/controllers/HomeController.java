@@ -30,7 +30,7 @@ public class HomeController {
     model.addAttribute("businessCard", card);
 
     final List<ContactInfo> existingContactInfos = contactService.findAll();
-    model.addAttribute("existingContacts", existingContactInfos);
+    model.addAttribute("existingContactInfos", existingContactInfos);
     return "home";
   }
 

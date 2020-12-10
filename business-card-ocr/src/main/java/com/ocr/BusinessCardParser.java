@@ -43,6 +43,7 @@ public class BusinessCardParser {
     if (!lastNameWithIndex.isEmpty()) {
       return buildFullName(false, words, lastNameWithIndex);
     }
+    log("Name not found for string: " + info);
     return UNKNOWN_NAME;
   }
 
@@ -116,6 +117,7 @@ public class BusinessCardParser {
       }
       j++;
     }
+    log("Phone number not found for string: " + info);
     return UNKNOWN_PHONE_NUMBER;
   }
 
@@ -127,6 +129,7 @@ public class BusinessCardParser {
         return word;
       }
     }
+    log("Email not found for string: " + info);
     return UNKNOWN_EMAIL;
   }
 
@@ -139,7 +142,7 @@ public class BusinessCardParser {
   }
 
   public void log(final String message) {
-    System.out.println(message);
+    System.out.print(message + "\n");
   }
 
   public static String UNKNOWN_NAME = "Unknown name";
