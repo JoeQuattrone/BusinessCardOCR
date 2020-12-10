@@ -2,7 +2,7 @@ package com.ocr.controllers;
 
 import com.ocr.BusinessCard;
 import com.ocr.BusinessCardParser;
-import com.ocr.Contact;
+import com.ocr.ContactInfo;
 import com.ocr.services.ContactService;
 import java.util.List;
 import org.springframework.stereotype.Controller;
@@ -29,8 +29,8 @@ public class HomeController {
     BusinessCard card = new BusinessCard();
     model.addAttribute("businessCard", card);
 
-    final List<Contact> existingContacts = contactService.findAll();
-    model.addAttribute("existingContacts", existingContacts);
+    final List<ContactInfo> existingContactInfos = contactService.findAll();
+    model.addAttribute("existingContacts", existingContactInfos);
     return "home";
   }
 
@@ -41,9 +41,9 @@ public class HomeController {
       System.out.println(bindingResult.getAllErrors().toString());
     }
 
-    final Contact contact = businessCardParser.buildContact(card);
-    contactService.add(contact);
-    model.addAttribute("contactInfo", contact);
+    final ContactInfo contactInfo = businessCardParser.buildContact(card);
+    contactService.add(contactInfo);
+    model.addAttribute("contactInfo", contactInfo);
     return "redirect:/";
   }
 

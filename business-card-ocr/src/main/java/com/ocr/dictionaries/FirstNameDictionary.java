@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
 // source: https://namecensus.com
 @Component
 public class FirstNameDictionary extends Dictionary {
-
-  // TODO: change to private before shipping
-  public static final Map<String, Boolean> names = new HashMap<>();
+  private static final Map<String, Boolean> names = new HashMap<>();
 
   static {
     writeFileToMap(names, "com/firstNames.txt");

@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 // source: https://www2.census.gov
 @Component
 public class LastNameDictionary extends Dictionary {
-  // TODO: change to private before shipping
-  public static Map<String, Boolean> names = new HashMap<>();
+  private static Map<String, Boolean> names = new HashMap<>();
 
   static {
     writeFileToMap(names, "com/lastNames.txt");

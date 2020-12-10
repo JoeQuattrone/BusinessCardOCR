@@ -20,7 +20,6 @@ public class BusinessCard {
   // Removes parenthesis and dashes
   private String replaceChars(final String info) {
     final String withSpaces = replaceNewLinesWithSpaces(info);
-    // info = info.replace("\"\\\\(.+?\\\\)\"", "");
     return withSpaces.replaceAll("[\\-()]", "");
   }
 

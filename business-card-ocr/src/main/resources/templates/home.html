@@ -5,7 +5,7 @@
   </head>
   <body>
     <h1>Business Card Optical Character Recognition</h1>
-    <h3>Enter Card Info</h3>
+    <h3>Enter Business Card</h3>
     <div>
       <form action="#" th:action="@{/save}" method="post"  th:object="${businessCard}" name="cardForm">
         <textarea  th:field="*{info}" name="card" type="card" cols="30" rows="10"></textarea>
@@ -14,16 +14,16 @@
       <form action="#" th:action="@{/clear}" method="get">
         <input type="submit" value="clear"/>
       </form>
-      <div th:if="${existingContacts.size() > 0}" th:each="contact : ${existingContacts}">
+      <div th:if="${!existingContactInfos.isEmpty()}" th:each="contactInfo : ${existingContactInfos}">
         <ul>
           <li>
-            Name: <span th:text="${contact.getName()}"></span>
+            Name: <span th:text="${contactInfo.getName()}"></span>
           </li>
           <li>
-            Email: <span th:text="${contact.getEmailAddress()}"></span>
+            Telephone: <span th:text="${contactInfo.getPhoneNumber()}"></span>
           </li>
           <li>
-            Telephone: <span th:text="${contact.getPhoneNumber()}"></span>
+            Email: <span th:text="${contactInfo.getEmailAddress()}"></span>
           </li>
         </ul>
         <hr/>

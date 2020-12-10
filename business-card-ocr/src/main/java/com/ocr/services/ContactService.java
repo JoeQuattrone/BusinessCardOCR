@@ -1,6 +1,6 @@
 package com.ocr.services;
 
-import com.ocr.Contact;
+import com.ocr.ContactInfo;
 import com.ocr.repositories.ContactRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,12 @@ public class ContactService {
     this.contactRepository = contactRepository;
   }
 
-  public List<Contact> findAll() {
+  public List<ContactInfo> findAll() {
     return contactRepository.findAll();
   }
 
-  public void add(final Contact contact) {
-    contactRepository.add(contact);
+  public void add(final ContactInfo contactInfo) {
+    contactRepository.add(contactInfo);
   }
 
   public void clearAll() {

@@ -20,17 +20,17 @@ public class BusinessCardParser {
     this.lastNameDictionary = lastNameDictionary;
   }
 
-  public Contact buildContact(BusinessCard card) {
+  public ContactInfo buildContact(BusinessCard card) {
     final String info = card.getInfo();
     final String name = findName(info);
     final String phoneNumber = findPhoneNumber(info);
     final String emailAddress = findEmailAddress(info);
 
-    return new Contact(name, phoneNumber, emailAddress);
+    return new ContactInfo(name, phoneNumber, emailAddress);
   }
 
   // Searches for first names first. If found return first name + the word after it.
-  // If first name not found, search for last name and return last name + the word before it
+  // If first name is not found, search for last name and return last name + the word before it
   public String findName(final String info) {
     final String[] words = info.split(" ");
     final Map<Integer, String> firstNameWithIndex = findNameWithIndex(words, true);
@@ -52,9 +52,6 @@ public class BusinessCardParser {
       final String word = words[i].trim();
 
       if (isCapitalized(word)) {
-        log("Capital word found " + word);
-
-        // null when word is not found in dictionary
         final Boolean isNameFound =
             isFindByFirstName ? firstNameDictionary.get(word) : lastNameDictionary.get(word);
 
@@ -133,7 +130,7 @@ public class BusinessCardParser {
     return UNKNOWN_EMAIL;
   }
 
-  public boolean isCapitalized(final String word) {
+  private boolean isCapitalized(final String word) {
     if (word.length() > 1) {
       final char[] chars = word.toCharArray();
       return Character.isUpperCase(chars[0]) && Character.isLowerCase(chars[1]);
