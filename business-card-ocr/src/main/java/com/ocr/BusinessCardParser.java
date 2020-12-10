@@ -29,8 +29,10 @@ public class BusinessCardParser {
     return new ContactInfo(name, phoneNumber, emailAddress);
   }
 
-  // Searches for first names first. If found return first name + the word after it.
-  // If first name is not found, search for last name and return last name + the word before it
+  //  Searches for first names using a dictionary of common first names.
+  //  If the search finds a first name, return the name with the word after it.
+  //  Otherwise search for last names using a dictionary of common last names.
+  //  If last name is found return the last name with the word before it.
   public String findName(final String info) {
     final String[] words = info.split(" ");
     final Map<Integer, String> firstNameWithIndex = findNameWithIndex(words, true);
@@ -93,11 +95,10 @@ public class BusinessCardParser {
     return UNKNOWN_NAME;
   }
 
-  // searches for numeric strings larger then 6 digits. Checks to make sure the word before if it is
-  // not "fax".
-  // then checks to see if digits are in the previous word, if so concat the previous word with the
-  // current word.
-  // otherwise return the current word
+  //  Searches for numeric words larger then 6 digits. Checks to make sure the previous is not "fax"
+  //  then checks to see if digits are in the previous word, if so concat the previous word with the
+  //  current word to form the complete phone number.
+  //  Otherwise return the current word.
   public String findPhoneNumber(final String info) {
     final String[] words = info.split(" ");
     final Pattern phonePattern = Pattern.compile(NUMERIC_STRING_PATTERN);
