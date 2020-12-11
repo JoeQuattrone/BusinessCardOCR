@@ -2,12 +2,12 @@ package com.ocr.dictionaries;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public abstract class Dictionary {
 
-  static void writeFileToMap(final Map<String, Boolean> names, final String fileName) {
+  static void writeFileToMap(final Set<String> names, final String fileName) {
     try {
       URL resource = Dictionary.class.getClassLoader().getResource(fileName);
       File file = new File(resource.toURI());
@@ -15,7 +15,7 @@ public abstract class Dictionary {
       final Scanner scanner = new Scanner(file);
 
       while (scanner.hasNext()) {
-        names.put(scanner.next(), Boolean.TRUE);
+        names.add(scanner.next());
       }
     } catch (Exception e) {
       e.printStackTrace();

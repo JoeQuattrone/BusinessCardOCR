@@ -58,7 +58,7 @@ public class BusinessCardParser {
         final Boolean isNameFound =
             isFindByFirstName ? firstNameDictionary.get(word) : lastNameDictionary.get(word);
 
-        if (isNameFound == Boolean.TRUE) {
+        if (isNameFound) {
           log(word + " was found by first name: " + isFindByFirstName);
           return Collections.singletonMap(i, word);
         }

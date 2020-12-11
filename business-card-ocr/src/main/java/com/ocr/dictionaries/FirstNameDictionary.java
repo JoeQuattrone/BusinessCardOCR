@@ -1,14 +1,14 @@
 package com.ocr.dictionaries;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.stereotype.Component;
 
 // In-memory database of the 1,900 most common male & female first names
 // source: https://namecensus.com
 @Component
 public class FirstNameDictionary extends Dictionary {
-  private static final Map<String, Boolean> names = new HashMap<>();
+  private static final Set<String> names = new HashSet<>();
 
   static {
     writeFileToMap(names, "com/firstNames.txt");
@@ -16,6 +16,6 @@ public class FirstNameDictionary extends Dictionary {
 
   @Override
   public Boolean get(final String name) {
-    return names.get(name.toUpperCase());
+    return names.contains(name.toUpperCase());
   }
 }
