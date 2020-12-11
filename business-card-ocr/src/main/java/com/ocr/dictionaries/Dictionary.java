@@ -22,5 +22,5 @@ public abstract class Dictionary {
     }
   }
 
-  public abstract Boolean get(String name);
+  public abstract boolean get(String name);
 }

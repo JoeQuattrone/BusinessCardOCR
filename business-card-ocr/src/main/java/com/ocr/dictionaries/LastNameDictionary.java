@@ -15,7 +15,7 @@ public class LastNameDictionary extends Dictionary {
   }
 
   @Override
-  public Boolean get(final String name) {
+  public boolean get(final String name) {
     return names.contains(name.toUpperCase());
   }
 }

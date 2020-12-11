@@ -38,7 +38,7 @@ public class BusinessCardParserTest {
   @Test(dataProvider = "findByFirstNameDataSet")
   public void findName_shouldReturnNameFromCardInfoUsingFirstNameSearch(
       final BusinessCard card, final String firstName, final String expectedName) {
-    when(firstNameDictionary.get(firstName)).thenReturn(Boolean.TRUE);
+    when(firstNameDictionary.get(firstName)).thenReturn(true);
 
     final String name = businessCardParser.findName(card.getInfo());
 
@@ -58,7 +58,7 @@ public class BusinessCardParserTest {
   @Test(dataProvider = "findByLastNameDataSet")
   public void findName_shouldReturnNameFromCardInfoUsingLastNameSearch(
       final BusinessCard card, final String lastName, final String expectedName) {
-    when(lastNameDictionary.get(lastName)).thenReturn(Boolean.TRUE);
+    when(lastNameDictionary.get(lastName)).thenReturn(true);
 
     final String name = businessCardParser.findName(card.getInfo());
 
