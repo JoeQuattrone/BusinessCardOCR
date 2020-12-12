@@ -70,7 +70,8 @@ public class BusinessCardParserTest {
     return new Object[][] {
       {CARD1, "4105551234"},
       {CARD2, "4105551234"},
-      {CARD3, "7035551259"},
+      {CARD3, "17035551259"},
+      {CARD4_WITH_FAX_FIRST, "17035551259"},
       {CARD_WITH_NO_NAME, UNKNOWN_PHONE_NUMBER},
     };
   }
@@ -110,5 +111,8 @@ public class BusinessCardParserTest {
   private static final BusinessCard CARD3 =
       new BusinessCard(
           "Arthur Wilson Software Engineer Decision & Security Technologies ABC Technologies 123 North 11th Street Suite 229 Arlington, VA 22209 Tel: +1 (703) 555-1259 Fax: +1 (703) 555-1200 awilson@abctech.com");
+  private static final BusinessCard CARD4_WITH_FAX_FIRST =
+      new BusinessCard(
+          "Arthur Wilson Software Engineer Decision & Security Technologies ABC Technologies 123 North 11th Street Suite 229 Arlington, VA 22209 Fax: +1 (703) 555-1200 Tel: +1 (703) 555-1259 awilson@abctech.com");
   private static final BusinessCard CARD_WITH_NO_NAME = new BusinessCard("Text with no name");
 }

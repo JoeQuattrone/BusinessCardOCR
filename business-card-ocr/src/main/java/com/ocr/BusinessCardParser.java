@@ -95,26 +95,41 @@ public class BusinessCardParser {
     return UNKNOWN_NAME;
   }
 
-  //  Searches for numeric words larger then 6 digits. Checks to make sure the previous is not "fax"
+  //  Searches for numeric words larger then 6 digits and makes sure the word is not preceded by fax
   //  then checks to see if digits are in the previous word, if so concat the previous word with the
   //  current word to form the complete phone number.
   //  Otherwise return the current word.
+  //  Also prepend the area code if found.
   public String findPhoneNumber(final String info) {
     final String[] words = info.split(" ");
     final Pattern phonePattern = Pattern.compile(NUMERIC_STRING_PATTERN);
+    StringBuilder phoneNumber = new StringBuilder();
+    boolean isFaxNumber = false;
 
     int j = 0;
     for (int i = 1; i < words.length - 1; i++) {
       final String word = words[i];
       final String previousWord = words[j].toLowerCase();
       final Matcher matcher = phonePattern.matcher(word);
-      if (matcher.find() && word.length() > 6 && !previousWord.contains("fax")) {
+
+      if (word.toLowerCase().contains("fax")) {
+        isFaxNumber = true;
+      }
+      if (word.contains("+") && word.length() > 1) {
+        phoneNumber.append(word.substring(1));
+      }
+      if (matcher.find() && word.length() > 6) {
         final Matcher previousWordMatcher = phonePattern.matcher(previousWord);
         if (previousWordMatcher.find()) {
-          return previousWord.concat(word);
+          phoneNumber.append(previousWord.concat(word));
         } else {
-          return word;
+          phoneNumber.append(word);
         }
+        if (!isFaxNumber) {
+          return phoneNumber.toString();
+        }
+        phoneNumber = new StringBuilder();
+        isFaxNumber = false;
       }
       j++;
     }
