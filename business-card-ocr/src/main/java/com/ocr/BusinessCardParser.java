@@ -95,7 +95,8 @@ public class BusinessCardParser {
     return UNKNOWN_NAME;
   }
 
-  //  Searches for numeric words larger then 6 digits and makes sure the word is not preceded by fax
+  //  Searches for numeric words larger then 6 digits and makes sure the word is not preceded by
+  // "fax"
   //  then checks to see if digits are in the previous word, if so concat the previous word with the
   //  current word to form the complete phone number.
   //  Otherwise return the current word.

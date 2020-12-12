@@ -56,7 +56,7 @@ Before you continue ensure you have the following installed:
     Otherwise search for last names using a dictionary of common last names. 
     If last name is found return the last name with the word before it.  
     
-    Telephone Number - Searches for numeric words larger then 6 digits. Checks to make sure the previous is not "fax"
+    Telephone Number - Searches for numeric words larger then 6 digits and makes sure the word is not preceded by "fax"
     then checks to see if digits are in the previous word, if so concat the previous word with the
     current word to form the complete phone number.
     Otherwise return the current word.
