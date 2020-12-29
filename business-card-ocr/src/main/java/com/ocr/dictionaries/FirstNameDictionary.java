@@ -11,7 +11,7 @@ public class FirstNameDictionary extends Dictionary {
   private static final Set<String> names = new HashSet<>();
 
   static {
-    writeFileToMap(names, "com/firstNames.txt");
+    writeFileToMemory(names, "com/firstNames.txt");
   }
 
   @Override

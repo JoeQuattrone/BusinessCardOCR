@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 // source: https://www2.census.gov
 @Component
 public class LastNameDictionary extends Dictionary {
-  private static Set<String> names = new HashSet<>();
+  private static final Set<String> names = new HashSet<>();
 
   static {
-    writeFileToMap(names, "com/lastNames.txt");
+    writeFileToMemory(names, "com/lastNames.txt");
   }
 
   @Override

@@ -7,7 +7,7 @@ import java.util.Set;
 
 public abstract class Dictionary {
 
-  static void writeFileToMap(final Set<String> names, final String fileName) {
+  static void writeFileToMemory(final Set<String> names, final String fileName) {
     try {
       URL resource = Dictionary.class.getClassLoader().getResource(fileName);
       File file = new File(resource.toURI());
